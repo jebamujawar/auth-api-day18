@@ -6,14 +6,15 @@ const jwt = require("jsonwebtoken");
 const app = express();
 app.use(express.json());
 
-const PORT = 3000;
-const JWT_SECRET = "secretkey";
+const PORT = process.env.PORT || 3000;
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // ================== DATABASE ==================
-mongoose
-  .connect("mongodb://127.0.0.1:27017/authdb")
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
+
 
 // ================== USER MODEL ==================
 const UserSchema = new mongoose.Schema({
